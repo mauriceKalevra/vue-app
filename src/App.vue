@@ -1,8 +1,11 @@
 <template>
 <div id="app">
-{{name}},
-{{age}},
-{{ `${height} ${IQ}` }} <hr>
+<div class="title">
+Vue-js Application
+</div>
+Name: {{name}},
+Alter:  {{age}},
+Größe: {{ `${height} IQ: ${IQ}` }} <hr>
 {{fullid}}
 <hr>
 {{age >18 ? 'adult' : 'kid' }},
@@ -21,6 +24,21 @@ Passed, You're above 18 years old!
 <div v-show="name == 'Maurice'">
 Hi, Maurice!
 </div>
+<span v-if="age > 18">
+Matured!
+</span>
+<span v-else>
+You're to young for this information!
+</span>
+<p v-for="n in 3" v-bind:key="n">
+{{n}}
+</p>  
+<ul>
+<li v-for="(city, index) in todos" v-bind:key="city.id">
+{{++index}}.{{city.name}}
+</li>
+</ul>
+
 </div>
 </template>
 
@@ -29,21 +47,33 @@ Hi, Maurice!
 export default {
   name: 'App',
   data: () =>({
-    name: 'Mauricee',
-    age: 185,
+    name: 'Maurice',
+    age: 19,
     height: 183,
     IQ: 138,
-    Cock: 16
+    hometown: 'Freiburg',
+    todos: [
+      {id:1, name: "Vue lernen"},
+      {id:2, name: "git pushen"},
+      {id:3, name: "Datenbanken intgrieren"}
+    ]
   }),
   computed: {
     fullid() {
-      return this.name + " " + this.age;
+      return this.name + " " + this.age + " " + this.height + " " + this.IQ + " " +  this.hometown;
     }
   }
 }
 </script>
 
 <style>
+.title {
+  border: 2px blue;
+  margin: 2px;
+  padding: 5px;
+  text-align: center;
+  font-size: 50;
+}
 .agee {
   border: 2px solid #f00;
   margin: 5px;
@@ -53,7 +83,7 @@ export default {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
+  text-align: left;
   color: #2c3e50;
   margin-top: 60px;
 }
