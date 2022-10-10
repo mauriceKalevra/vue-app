@@ -34,11 +34,16 @@ You're to young for this information!
 {{n}}
 </p>  
 <ul>
-<li v-for="(city, index) in todos" v-bind:key="city.id">
-{{++index}}.{{city.name}}
+<li v-for="(todo, index) in todos" v-bind:key="todo.id"
+:class="{'finishedTask':todo.finished}">
+{{++index}}.{{todo.name}}
+<input type="checked" checked v-if="finished" />
+<input type="checkbox" :checked="todo.finished" />
+<a :href="'?id='+todo.id">show</a>
 </li>
 </ul>
-
+<!-- statt v-on geht auch @ -->
+<button v-on:click="submit">Submit</button>
 </div>
 </template>
 
@@ -53,11 +58,16 @@ export default {
     IQ: 138,
     hometown: 'Freiburg',
     todos: [
-      {id:1, name: "Vue lernen"},
-      {id:2, name: "git pushen"},
-      {id:3, name: "Datenbanken intgrieren"}
+      {id:1, finished: true, name: "Vue lernen"},
+      {id:2, finished: true,  name: "git pushen"},
+      {id:3, finished: false, name: "Datenbanken integrieren"}
     ]
   }),
+  methods: {
+    submit() {
+      alert("submit");
+    }
+  },
   computed: {
     fullid() {
       return this.name + " " + this.age + " " + this.height + " " + this.IQ + " " +  this.hometown;
@@ -67,6 +77,10 @@ export default {
 </script>
 
 <style>
+
+.finishedTask {
+  text-decoration: line-through;
+}
 .title {
   border: 2px blue;
   margin: 2px;
