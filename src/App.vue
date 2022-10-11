@@ -48,7 +48,6 @@ You're to young for this information!
 </template>
 
 <script>
-
 export default {
   name: 'App',
   data: () =>({
